@@ -190,7 +190,7 @@ htmlhelp_basename = 'LibraClent'
 # (source start file, target name, title, author,
 # documentclass [howto/manual]).
 latex_documents = [
-    ('index', 'pthon-libraclient-{0}.tex'.format(version), u'Libra Client Documentation',
+    ('index', 'python-libraclient-{0}.tex'.format(version), u'Libra Client Documentation',
         u'Andrew Hutchings', 'manual'),
 ]
 
