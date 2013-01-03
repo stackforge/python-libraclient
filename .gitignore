@@ -1,0 +1,11 @@
+*.pyc
+.testrepository
+.tox
+*.egg-info
+build/
+debian/files
+debian/python-libraclient.debhelper.log
+debian/python-libraclient.postinst.debhelper
+debian/python-libraclient.prerm.debhelper
+debian/python-libraclient.substvars
+debian/python-libraclient/

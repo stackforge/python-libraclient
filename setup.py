@@ -47,7 +47,7 @@ except Exception:
 
 setup_reqs = ['Sphinx']
 
-execfile('client/__init__.py')
+execfile('libraclient/__init__.py')
 
 
 setuptools.setup(
@@ -58,7 +58,7 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=["*.tests"]),
     entry_points={
         'console_scripts': [
-            'libra_client = client.client:main',
+            'libra_client = libraclient.client:main',
         ]
     },
     cmdclass=ci_cmdclass,

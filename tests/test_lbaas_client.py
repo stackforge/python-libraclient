@@ -5,7 +5,7 @@ import sys
 import novaclient
 import testtools
 from StringIO import StringIO
-from client.libraapi import LibraAPI
+from libraclient.libraapi import LibraAPI
 
 class DummyArgs(object):
     """ Fake argparse response """
