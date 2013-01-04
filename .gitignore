@@ -9,3 +9,5 @@ debian/python-libraclient.postinst.debhelper
 debian/python-libraclient.prerm.debhelper
 debian/python-libraclient.substvars
 debian/python-libraclient/
+AUTHORS
+ChangeLog
