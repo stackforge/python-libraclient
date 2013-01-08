@@ -67,10 +67,13 @@ class LibraAPI(object):
 
     def limits_lb(self, args):
         resp, body = self._get('/limits')
-        column_names = ['Verb', 'Value', 'Remaining', 'Unit', 'Next Available']
-        columns = ['verb', 'value', 'remaining', 'unit', 'next-available']
-        self._render_list(column_names, columns,
-                          body['limits']['rate']['values']['limit'])
+        # Work around the fact that limits is missing from HP's API server
+        if 'rate' in body['limits']:
+            column_names = ['Verb', 'Value', 'Remaining', 'Unit',
+                            'Next Available']
+            columns = ['verb', 'value', 'remaining', 'unit', 'next-available']
+            self._render_list(column_names, columns,
+                              body['limits']['rate']['values']['limit'])
         column_names = ['Values']
         columns = ['values']
         self._render_dict(column_names, columns, body['limits']['absolute'])
@@ -127,8 +130,7 @@ class LibraAPI(object):
             data['algorithm'] = args.algorithm
         for node in args.node:
             addr = node.split(':')
-            nodes.append({'address': addr[0], 'port': addr[1],
-                          'condition': 'ENABLED'})
+            nodes.append({'address': addr[0], 'port': addr[1]})
         data['nodes'] = nodes
         if args.vip is not None:
             data['virtualIps'] = [{'id': args.vip}]
@@ -164,8 +166,7 @@ class LibraAPI(object):
 
         for node in args.node:
             addr = node.split(':')
-            nodes.append({'address': addr[0], 'port': addr[1],
-                          'condition': 'ENABLED'})
+            nodes.append({'address': addr[0], 'port': addr[1]})
         data['nodes'] = nodes
         resp, body = self._post('/loadbalancers/{0}/nodes'
                                 .format(args.id), body=data)
@@ -190,7 +191,10 @@ class LibraAPI(object):
         for item in data:
             row = []
             for column in columns:
-                rdata = item[column]
+                if column in item:
+                    rdata = item[column]
+                else:
+                    rdata = ''
                 row.append(rdata)
             table.add_row(row)
         print table
@@ -199,7 +203,10 @@ class LibraAPI(object):
         table = prettytable.PrettyTable(column_names)
         row = []
         for column in columns:
-            rdata = data[column]
+            if column in data:
+                rdata = data[column]
+            else:
+                rdata = ''
             row.append(rdata)
         table.add_row(row)
         print table

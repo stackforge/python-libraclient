@@ -211,12 +211,10 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                     "nodes": [
                                 {
                                     "address": "10.1.1.1",
-                                    "condition": "ENABLED",
                                     "port": "80"
                                 },
                                 {
                                     "address": "10.1.1.2",
-                                    "condition": "ENABLED",
                                     "port": "81"
                                 }
                              ]
@@ -269,7 +267,6 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                         'id': '653',
                         'port': '80',
                         'status': 'ONLINE',
-                        'condition': 'ENABLED'
                     }
                 ]
             })
@@ -286,7 +283,6 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                     "nodes": [
                                 {
                                     "address": "10.1.1.1",
-                                    "condition": "ENABLED",
                                     "port": "80"
                                 }
                              ]
