@@ -11,3 +11,4 @@ debian/python-libraclient.substvars
 debian/python-libraclient/
 AUTHORS
 ChangeLog
+doc/api

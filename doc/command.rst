@@ -1,5 +1,5 @@
-Libra Client
-============
+Usage
+=====
 
 Synopsis
 --------
