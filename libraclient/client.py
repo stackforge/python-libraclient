@@ -21,9 +21,7 @@ def main():
     options = ClientOptions()
     args = options.run()
 
-    api = LibraAPI(args.os_username, args.os_password, args.os_tenant_name,
-                   args.os_auth_url, args.os_region_name, args.insecure,
-                   args.debug, args.bypass_url)
+    api = LibraAPI(args)
 
     cmd = args.command.replace('-', '_')
     method = getattr(api, '{cmd}_lb'.format(cmd=cmd))

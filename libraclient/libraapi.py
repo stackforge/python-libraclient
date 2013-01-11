@@ -51,18 +51,17 @@ novaclient.exceptions.from_response = from_response
 
 
 class LibraAPI(object):
-    def __init__(self, username, password, tenant, auth_url, region,
-                 insecure, debug, bypass_url):
+    def __init__(self, args):
         self.nova = client.HTTPClient(
-            username,
-            password,
-            tenant,
-            auth_url,
-            region_name=region,
-            service_type='compute',
-            http_log_debug=debug,
-            insecure=insecure,
-            bypass_url=bypass_url
+            args.os_username,
+            args.os_password,
+            args.os_tenant_name,
+            args.os_auth_url,
+            region_name=args.os_region_name,
+            service_type=args.service_type,
+            http_log_debug=args.debug,
+            insecure=args.insecure,
+            bypass_url=args.bypass_url
         )
 
     def limits_lb(self, args):

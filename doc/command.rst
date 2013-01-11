@@ -36,25 +36,35 @@ Global Options
    URL to use as an endpoint instead of the one specified by the Service
    Catalog
 
+.. option:: --service_type <service-type>
+
+   Alternative service type to use for your cloud provider (default is
+   'hpext:lbaas')
+
 .. option:: --os_auth_url <auth-url>
 
-   The OpenStack authentication URL
+   The OpenStack authentication URL.  Default is ``OS_AUTH_URL`` or
+   ``LIBRA_URL`` environment variables
 
 .. option:: --os_username <auth-user-name>
 
-   The user name to use for authentication
+   The user name to use for authentication.  Default is ``OS_USERNAME`` or
+   ``LIBRA_USERNAME`` environment variables
 
 .. option:: --os_password <auth-password>
 
-   The password to use for authentication
+   The password to use for authentication.  Default is ``OS_PASSWORD`` or
+   ``LIBRA_PASSWORD`` environment variables
 
 .. option:: --os_tenant_name <auth-tenant-name>
 
-   The tenant to authenticate to
+   The tenant to authenticate to.  Default is ``OS_TENANT_NAME`` or
+   ``LIBRA_PROJECT_ID`` environment variables
 
 .. option:: --os_region_name <region-name>
 
-   The region the load balancer is located
+   The region the load balancer is located.  Default is ``OS_REGION_NAME`` or
+   ``LIBRA_REGION_NAME`` environment variables
 
 .. _libra_client-commands:
 

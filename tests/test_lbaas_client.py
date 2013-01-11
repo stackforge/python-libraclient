@@ -30,12 +30,25 @@ class DummyModifyArgs(object):
         self.name = 'a-modified-loadbalancer'
         self.algorithm = 'LEAST_CONNECTIONS'
 
+class MockLibraArgs(object):
+    def __init__(self, username, password, tenant, auth_url, region):
+        self.os_username=username
+        self.os_password=password
+        self.os_tenant_name=tenant
+        self.os_auth_url=auth_url
+        self.os_region_name=region
+        self.service_type='compute'
+        self.debug=False
+        self.insecure=False
+        self.bypass_url=None
+
 class MockLibraAPI(LibraAPI):
     """ Used to capture data that would be sent to the API server """
     def __init__(self, username, password, tenant, auth_url, region):
         self.postdata = None
         self.putdata = None
-        return super(MockLibraAPI, self).__init__(username, password, tenant, auth_url, region, False, False, None)
+        args=MockLibraArgs(username, password, tenant, auth_url, region)
+        return super(MockLibraAPI, self).__init__(args)
     def _post(self, url, **kwargs):
         """ Store the post data and execute as normal """
         self.postdata = kwargs['body']
