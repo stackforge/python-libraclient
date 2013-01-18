@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: linuxjedi <andrew@linuxjedi.co.uk>
+Code-Review+2: linuxjedi <andrew@linuxjedi.co.uk>
+Submitted-by: Jenkins
+Submitted-at: Fri, 18 Jan 2013 16:12:07 +0000
+Reviewed-on: https://review.openstack.org/20032
+Project: stackforge/python-libraclient
+Branch: refs/heads/master
