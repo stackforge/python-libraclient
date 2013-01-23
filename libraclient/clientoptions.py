@@ -26,35 +26,30 @@ class ClientOptions(object):
         self.options.add_argument(
             '--os_auth_url',
             metavar='<auth-url>',
-            required=True,
             default=utils.env('OS_AUTH_URL', 'LIBRA_URL'),
             help='Authentication URL'
         )
         self.options.add_argument(
             '--os_username',
             metavar='<auth-user-name>',
-            required=True,
             default=utils.env('OS_USERNAME', 'LIBRA_USERNAME'),
             help='Authentication username'
         )
         self.options.add_argument(
             '--os_password',
             metavar='<auth-password>',
-            required=True,
             default=utils.env('OS_PASSWORD', 'LIBRA_PASSWORD'),
             help='Authentication password'
         )
         self.options.add_argument(
             '--os_tenant_name',
             metavar='<auth-tenant-name>',
-            required=True,
             default=utils.env('OS_TENANT_NAME', 'LIBRA_PROJECT_ID'),
             help='Authentication tenant'
         )
         self.options.add_argument(
             '--os_region_name',
             metavar='<region-name>',
-            required=True,
             default=utils.env('OS_REGION_NAME', 'LIBRAL_REGION_NAME'),
             help='Authentication region'
         )
