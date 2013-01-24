@@ -44,7 +44,7 @@ setuptools.setup(
     version=__version__,
     description="Python client for libra LBaaS solution",
     author="Andrew Hutchings <andrew@linuxjedi.co.uk>",
-    packages=setuptools.find_packages(exclude=["*.tests"]),
+    packages=setuptools.find_packages(exclude=["tests", "*.tests"]),
     entry_points={
         'console_scripts': [
             'libra_client = libraclient.client:main',
