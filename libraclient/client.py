@@ -47,6 +47,9 @@ def main():
         method(args)
     except exceptions.ClientException as exc:
         print exc
-        print exc.details
+        if exc.details:
+            print exc.details
+    except exceptions.EndpointNotFound:
+        return 2
 
     return 0
