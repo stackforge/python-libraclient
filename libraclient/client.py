@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import sys
+import os
 from libraapi import LibraAPI
 from clientoptions import ClientOptions
 from novaclient import exceptions
@@ -20,6 +22,21 @@ from novaclient import exceptions
 def main():
     options = ClientOptions()
     args = options.run()
+
+    required_args = [
+        'os_auth_url', 'os_username', 'os_password', 'os_tenant_name',
+        'os_region_name'
+    ]
+    missing_args = 0
+    for req in required_args:
+        test_var = getattr(args, req)
+        if test_var == '':
+            missing_args += 1
+            sys.stderr.write(
+                '{app}: error: argument --{test_var} is required\n'
+                .format(app=os.path.basename(sys.argv[0]), test_var=req))
+    if missing_args:
+        return 2
 
     api = LibraAPI(args)
 
@@ -30,5 +47,6 @@ def main():
         method(args)
     except exceptions.ClientException as exc:
         print exc
+        print exc.details
 
     return 0

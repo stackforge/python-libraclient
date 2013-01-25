@@ -12,3 +12,4 @@ debian/python-libraclient/
 AUTHORS
 ChangeLog
 doc/api
+*.deb
