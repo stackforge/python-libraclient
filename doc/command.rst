@@ -187,7 +187,7 @@ List the nodes in a load balancer
 node-delete
 ^^^^^^^^^^^
 
-Delete a node from the load balancer
+Delete a node from the load balancer.  Can only delete a single node at a time.  Multiple --nodeid arguments results in the last --nodeid value being removed from the loadbalancer.
 
 .. option:: --id <id>
 
@@ -202,7 +202,7 @@ Delete a node from the load balancer
 node-add
 ^^^^^^^^
 
-Add a node to a load balancer
+Add a node to a load balancer.  Can add multiple nodes at one time via additional --node arguments.  Command will fail completely if added nodes will exceed the maximum per-loadbalancer node count
 
 .. option:: --id <id>
 
