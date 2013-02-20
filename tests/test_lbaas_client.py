@@ -1,6 +1,6 @@
 import json
 import mock
-import httplib2
+import requests
 import sys
 import novaclient
 import testtools
@@ -29,6 +29,31 @@ class DummyModifyArgs(object):
         self.id = 2012
         self.name = 'a-modified-loadbalancer'
         self.algorithm = 'LEAST_CONNECTIONS'
+
+class TestResponse(requests.Response):
+    """
+    Class used to wrap requests.Response and provide some
+    convenience to initialize with a dict
+    """
+
+    def __init__(self, data):
+        self._text = None
+        super(TestResponse, self)
+        if isinstance(data, dict):
+            self.status_code = data.get('status', None)
+            self.headers = data.get('headers', None)
+            # Fake the text attribute to streamline Response creation
+            self._text = data.get('text', None)
+        else:
+            self.status_code = data
+
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
+    @property
+    def text(self):
+        return self._text
+
 
 class MockLibraArgs(object):
     def __init__(self, username, password, tenant, auth_url, region):
@@ -62,14 +87,14 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
         """ Fake a login with token """
         super(TestLBaaSClientLibraAPI, self).setUp()
         self.api = MockLibraAPI('username', 'password', 'tenant', 'auth_test', 'region')
-        self.api.nova.management_url = "http://example.com"
+        self.api.nova.management_url = "auth_url/v1.0"
         self.api.nova.auth_token = "token"
 
     def testListLb(self):
         """ Test the table generated from the LIST function """
-        fake_response = httplib2.Response({"status": '200'})
-        fake_body = json.dumps({
-            "loadBalancers":[
+        fake_response = TestResponse({"status": 200,
+            "text": json.dumps({ 
+                "loadBalancers":[
                 {
                     "name":"lb-site1",
                     "id":"71",
@@ -90,11 +115,11 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                     "created":"2010-11-30T03:23:42Z",
                     "updated":"2010-11-30T03:23:44Z"
                 }
-            ]
+            ]})
         })
-        mock_request = mock.Mock(return_value=(fake_response, fake_body))
+        mock_request = mock.Mock(return_value=(fake_response))
 
-        with mock.patch.object(httplib2.Http, "request", mock_request):
+        with mock.patch.object(requests, "request", mock_request):
             with mock.patch('time.time', mock.Mock(return_value=1234)):
                 orig = sys.stdout
                 try:
@@ -116,8 +141,8 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
 
     def testGetLb(self):
         """ Test the table generated from the STATUS function """
-        fake_response = httplib2.Response({"status": '200'})
-        fake_body = json.dumps({
+        fake_response = TestResponse({"status": 200,
+          "text": json.dumps({
             "id": "2000",
             "name":"sample-loadbalancer",
             "protocol":"HTTP",
@@ -154,10 +179,10 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
             "connectionThrottle":{
                 "maxRequestRate": "50",
                 "rateInterval": "60"
-            }
+            }})
         })
-        mock_request = mock.Mock(return_value=(fake_response, fake_body))
-        with mock.patch.object(httplib2.Http, "request", mock_request):
+        mock_request = mock.Mock(return_value=(fake_response))
+        with mock.patch.object(requests, "request", mock_request):
             with mock.patch('time.time', mock.Mock(return_value=1234)):
                 orig = sys.stdout
                 try:
@@ -175,10 +200,9 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
         Test a failure of a DELETE function.  We don't test a succeed yet
         since that has no response so nothing to assert on
         """
-        fake_response = httplib2.Response({"status": '500'})
-        fake_body = ''
-        mock_request = mock.Mock(return_value=(fake_response, fake_body))
-        with mock.patch.object(httplib2.Http, "request", mock_request):
+        fake_response = TestResponse({"status": 500, "text": ""})
+        mock_request = mock.Mock(return_value=(fake_response))
+        with mock.patch.object(requests, "request", mock_request):
             with mock.patch('time.time', mock.Mock(return_value=1234)):
                 args = DummyArgs()
                 self.assertRaises(novaclient.exceptions.ClientException,
@@ -190,8 +214,8 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
         1. We send the correct POST data
         2. We create a table from the response correctly
         """
-        fake_response = httplib2.Response({"status": '202'})
-        fake_body = json.dumps({
+        fake_response = TestResponse({"status": 202,
+          "text": json.dumps({
             'name': 'a-new-loadbalancer',
             'id': '144',
             'protocol': 'HTTP',
@@ -218,6 +242,7 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                     }
                 ]
             })
+        })
         # This is what the POST data should look like based on the args passed
         post_compare = {
                     "name": "a-new-loadbalancer",
@@ -232,8 +257,8 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                                 }
                              ]
                         }
-        mock_request = mock.Mock(return_value=(fake_response, fake_body))
-        with mock.patch.object(httplib2.Http, "request", mock_request):
+        mock_request = mock.Mock(return_value=(fake_response))
+        with mock.patch.object(requests, "request", mock_request):
             with mock.patch('time.time', mock.Mock(return_value=1234)):
                 orig = sys.stdout
                 try:
@@ -256,8 +281,8 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
         Tests the CREATE function as above but adding a load balancer to a
         virtual IP
         """
-        fake_response = httplib2.Response({"status": '202'})
-        fake_body = json.dumps({
+        fake_response = TestResponse({"status": 202,
+          "text": json.dumps({
             'name': 'a-new-loadbalancer',
             'id': '144',
             'protocol': 'HTTP',
@@ -283,6 +308,7 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                     }
                 ]
             })
+        })
         # This is what the POST data should look like based on the args passed
         post_compare = {
                     "name": "a-new-loadbalancer",
@@ -300,8 +326,8 @@ class TestLBaaSClientLibraAPI(testtools.TestCase):
                                 }
                              ]
                         }
-        mock_request = mock.Mock(return_value=(fake_response, fake_body))
-        with mock.patch.object(httplib2.Http, "request", mock_request):
+        mock_request = mock.Mock(return_value=(fake_response))
+        with mock.patch.object(requests, "request", mock_request):
             with mock.patch('time.time', mock.Mock(return_value=1234)):
                 orig = sys.stdout
                 try:
