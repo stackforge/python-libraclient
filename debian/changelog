@@ -1,3 +1,9 @@
+python-libraclient (1.2.3-1) UNRELEASED; urgency=low
+
+  * Fixes broken exception handler
+
+ -- Andrew Hutchings <andrew@linuxjedi.co.uk>  Wed, 20 Feb 2013 19:31:25 +0000
+
 python-libraclient (1.2.2-1) UNRELEASED; urgency=low
 
   * Allow newer versions of Novaclient again

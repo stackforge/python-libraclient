@@ -36,7 +36,7 @@ def from_response(response, body, url, method=None):
         response.status_code, novaclient.exceptions.ClientException
     )
     if response.headers:
-        request_id = response.get('x-compute-request-id')
+        request_id = response.headers.get('x-compute-request-id')
     else:
         request_id = None
     if body:
