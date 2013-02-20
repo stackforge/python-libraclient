@@ -1,3 +1,10 @@
+python-libraclient (1.2.2-1) UNRELEASED; urgency=low
+
+  * Allow newer versions of Novaclient again
+  * Fix tests for newer versions
+
+ -- Andrew Hutchings <andrew@linuxjedi.co.uk>  Wed, 20 Feb 2013 08:52:39 +0000
+
 python-libraclient (1.2.1-1) UNRELEASED; urgency=low
 
   * Don't use broken version of Novaclient

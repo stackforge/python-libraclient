@@ -21,7 +21,7 @@ from novaclient import client
 # NOTE(LinuxJedi): Override novaclient's error handler as we send messages in
 # a slightly different format which causes novaclient's to throw an exception
 
-def from_response(response, body):
+def from_response(response, body, url, method=None):
     """
     Return an instance of an ClientException or subclass
     based on an httplib2 response.
@@ -33,19 +33,22 @@ def from_response(response, body):
             raise exception_from_response(resp, body)
     """
     cls = novaclient.exceptions._code_map.get(
-        response.status, novaclient.exceptions.ClientException
+        response.status_code, novaclient.exceptions.ClientException
     )
-    request_id = response.get('x-compute-request-id')
+    if response.headers:
+        request_id = response.get('x-compute-request-id')
+    else:
+        request_id = None
     if body:
         message = "n/a"
         details = "n/a"
         if hasattr(body, 'keys'):
             message = body.get('message', None)
             details = body.get('details', None)
-        return cls(code=response.status, message=message, details=details,
-                   request_id=request_id)
+        return cls(code=response.status_code, message=message, details=details,
+                   request_id=request_id, url=url, method=method)
     else:
-        return cls(code=response.status, request_id=request_id)
+        return cls(code=response.status_code, request_id=request_id, url=url, method=method)
 
 novaclient.exceptions.from_response = from_response
 
