@@ -119,6 +119,12 @@ class LibraAPI(object):
             body['connectionThrottle'] = 'None'
         self._render_dict(column_names, columns, body)
 
+    def virtualips_lb(self, args):
+        resp, body = self._get('/loadbalancers/{0}/virtualips'.format(args.id))
+        column_names = ['ID', 'Address', 'Type', 'IP Version']
+        columns = ['id', 'address', 'type', 'ipVersion']
+        self._render_list(column_names, columns, body['virtualIps'])
+
     def delete_lb(self, args):
         self._delete('/loadbalancers/{0}'.format(args.id))
 

@@ -93,6 +93,10 @@ class ClientOptions(object):
             action='store_true'
         )
         sp = subparsers.add_parser(
+            'virtualips', help='get a list of virtual IPs'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp = subparsers.add_parser(
             'delete', help='delete a load balancer'
         )
         sp.add_argument('--id', help='load balancer ID', required=True)
