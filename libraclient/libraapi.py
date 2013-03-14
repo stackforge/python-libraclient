@@ -14,6 +14,7 @@
 
 import prettytable
 import novaclient
+import socket
 
 from novaclient import client
 
@@ -123,7 +124,6 @@ class LibraAPI(object):
 
     def create_lb(self, args):
         data = {}
-        nodes = []
         data['name'] = args.name
         if args.port is not None:
             data['port'] = args.port
@@ -131,10 +131,7 @@ class LibraAPI(object):
             data['protocol'] = args.protocol
         if args.algorithm is not None:
             data['algorithm'] = args.algorithm
-        for node in args.node:
-            addr = node.split(':')
-            nodes.append({'address': addr[0], 'port': addr[1]})
-        data['nodes'] = nodes
+        data['nodes'] = self._parse_nodes(args.node)
         if args.vip is not None:
             data['virtualIps'] = [{'id': args.vip}]
 
@@ -165,12 +162,8 @@ class LibraAPI(object):
 
     def node_add_lb(self, args):
         data = {}
-        nodes = []
 
-        for node in args.node:
-            addr = node.split(':')
-            nodes.append({'address': addr[0], 'port': addr[1]})
-        data['nodes'] = nodes
+        data['nodes'] = self._parse_nodes(args.node)
         resp, body = self._post('/loadbalancers/{0}/nodes'
                                 .format(args.id), body=data)
         column_names = ['ID', 'Address', 'Port', 'Condition', 'Status']
@@ -225,3 +218,19 @@ class LibraAPI(object):
 
     def _delete(self, url, **kwargs):
         return self.nova.delete(url, **kwargs)
+
+    def _parse_nodes(self, nodes):
+        out_nodes = []
+        try:
+            for node in nodes:
+                addr = node.split(':')
+                # Test IP valid
+                # TODO: change to pton when we want to support IPv6
+                socket.inet_aton(addr[0])
+                # Test port valid
+                if int(addr[1]) < 0 or int(addr[1]) > 65535:
+                    raise
+                out_nodes.append({'address': addr[0], 'port': addr[1]})
+        except:
+            raise Exception("Invalid IP:port specified for --node")
+        return out_nodes

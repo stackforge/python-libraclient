@@ -51,5 +51,8 @@ def main():
             print exc.details
     except exceptions.EndpointNotFound:
         return 2
+    except Exception as exc:
+        print exc
+        return 2
 
     return 0
