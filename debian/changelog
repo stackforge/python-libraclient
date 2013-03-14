@@ -1,3 +1,10 @@
+python-libraclient (1.2.4-1) UNRELEASED; urgency=low
+
+  * Adds input filtering and error handling for --node options
+  * Adds virtualips command
+
+ -- Andrew Hutchings <andrew@linuxjedi.co.uk>  Thu, 14 Mar 2013 14:17:04 +0000
+
 python-libraclient (1.2.3-1) UNRELEASED; urgency=low
 
   * Fixes broken exception handler
