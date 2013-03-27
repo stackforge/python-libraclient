@@ -162,6 +162,15 @@ class ClientOptions(object):
         sp.add_argument('--nodeid', help='node ID to get status from',
                         required=True)
 
+        sp = subparsers.add_parser(
+            'logs', help='send a snapshot of logs to an object store'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--storage', help='storage type', choices=['Swift'])
+        sp.add_argument('--endpoint', help='object store endpoint to use')
+        sp.add_argument('--basepath', help='object store based directory')
+        sp.add_argument('--token', help='object store authentication token')
+
     def run(self):
         self._generate()
         return self.options.parse_args()

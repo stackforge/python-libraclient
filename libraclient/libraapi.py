@@ -188,6 +188,21 @@ class LibraAPI(object):
         columns = ['id', 'address', 'port', 'condition', 'status']
         self._render_dict(column_names, columns, body)
 
+    def logs_lb(self, args):
+        data = {}
+
+        if args.storage:
+            data['ObjectStoreType'] = args.storage
+        if args.endpoint:
+            data['ObjectStoreEndpoint'] = args.endpoint
+        if args.basepath:
+            data['ObjectStoreBasePath'] = args.basepath
+        if args.token:
+            data['ObjectStoreAuthToken'] = args.token
+
+        resp, body = self._post('/loadbalancers/{0}/logs'.format(args.id),
+                                body=data)
+
     def _render_list(self, column_names, columns, data):
         table = prettytable.PrettyTable(column_names)
         for item in data:

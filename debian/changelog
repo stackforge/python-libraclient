@@ -1,3 +1,9 @@
+python-libraclient (1.2.5-1) UNRELEASED; urgency=low
+
+  * Adds support for Load Balancer log snapshotting
+
+ -- Andrew Hutchings <andrew@linuxjedi.co.uk>  Wed, 27 Mar 2013 20:24:06 +0000
+
 python-libraclient (1.2.4-1) UNRELEASED; urgency=low
 
   * Adds input filtering and error handling for --node options
