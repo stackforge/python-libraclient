@@ -192,13 +192,13 @@ class LibraAPI(object):
         data = {}
 
         if args.storage:
-            data['ObjectStoreType'] = args.storage
+            data['objectStoreType'] = args.storage
         if args.endpoint:
-            data['ObjectStoreEndpoint'] = args.endpoint
+            data['objectStoreEndpoint'] = args.endpoint
         if args.basepath:
-            data['ObjectStoreBasePath'] = args.basepath
+            data['objectStoreBasePath'] = args.basepath
         if args.token:
-            data['ObjectStoreAuthToken'] = args.token
+            data['authToken'] = args.token
 
         resp, body = self._post('/loadbalancers/{0}/logs'.format(args.id),
                                 body=data)
