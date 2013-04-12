@@ -108,15 +108,20 @@ class LibraAPI(object):
     def status_lb(self, args):
         resp, body = self._get('/loadbalancers/{0}'.format(args.id))
         column_names = ['ID', 'Name', 'Protocol', 'Port', 'Algorithm',
-                        'Status', 'Created', 'Updated', 'IPs', 'Nodes',
-                        'Persistence Type', 'Connection Throttle']
+                        'Status', 'Status Description', 'Created', 'Updated',
+                        'IPs', 'Nodes', 'Persistence Type',
+                        'Connection Throttle']
         columns = ['id', 'name', 'protocol', 'port', 'algorithm', 'status',
-                   'created', 'updated', 'virtualIps', 'nodes',
-                   'sessionPersistence', 'connectionThrottle']
+                   'statusDescription', 'created', 'updated', 'virtualIps',
+                   'nodes', 'sessionPersistence', 'connectionThrottle']
         if 'sessionPersistence' not in body:
             body['sessionPersistence'] = 'None'
         if 'connectionThrottle' not in body:
             body['connectionThrottle'] = 'None'
+        if 'statusDescription' in body:
+            body['statusDescription'] = body['statusDescription'].rstrip()
+        else:
+            body['statusDescription'] = 'None'
         self._render_dict(column_names, columns, body)
 
     def virtualips_lb(self, args):
