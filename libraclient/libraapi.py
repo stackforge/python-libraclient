@@ -44,7 +44,9 @@ def from_response(response, body, url, method=None):
         message = "n/a"
         details = "n/a"
         if hasattr(body, 'keys'):
-            message = body.get('message', None)
+            message = body.get('faultstring', None)
+            if not message:
+                message = body.get('message', None)
             details = body.get('details', None)
         return cls(code=response.status_code, message=message, details=details,
                    request_id=request_id, url=url, method=method)
