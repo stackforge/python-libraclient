@@ -102,9 +102,9 @@ class LibraAPI(object):
         else:
             resp, body = self._get('/loadbalancers')
         column_names = ['Name', 'ID', 'Protocol', 'Port', 'Algorithm',
-                        'Status', 'Created', 'Updated']
+                        'Status', 'Created', 'Updated', 'Node Count']
         columns = ['name', 'id', 'protocol', 'port', 'algorithm', 'status',
-                   'created', 'updated']
+                   'created', 'updated', 'nodeCount']
         self._render_list(column_names, columns, body['loadBalancers'])
 
     def status_lb(self, args):
@@ -112,10 +112,11 @@ class LibraAPI(object):
         column_names = ['ID', 'Name', 'Protocol', 'Port', 'Algorithm',
                         'Status', 'Status Description', 'Created', 'Updated',
                         'IPs', 'Nodes', 'Persistence Type',
-                        'Connection Throttle']
+                        'Connection Throttle', 'Node Count']
         columns = ['id', 'name', 'protocol', 'port', 'algorithm', 'status',
                    'statusDescription', 'created', 'updated', 'virtualIps',
-                   'nodes', 'sessionPersistence', 'connectionThrottle']
+                   'nodes', 'sessionPersistence', 'connectionThrottle',
+                   'nodeCount']
         if 'sessionPersistence' not in body:
             body['sessionPersistence'] = 'None'
         if 'connectionThrottle' not in body:
