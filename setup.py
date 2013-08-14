@@ -12,9 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import sys
 import setuptools
 from openstack.common import setup
+from libraclient import __version__
 
 requires = setup.parse_requirements()
 tests_requires = setup.parse_requirements(['tools/test-requires'])
@@ -35,8 +35,6 @@ try:
     ci_cmdclass['build_sphinx_latex'] = local_BuildDoc_latex
 except Exception:
     pass
-
-execfile('libraclient/__init__.py')
 
 
 setuptools.setup(
