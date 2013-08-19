@@ -76,30 +76,11 @@ class ClientOptions(object):
         subparsers = self.options.add_subparsers(
             metavar='<subcommand>', dest='command'
         )
-        subparsers.add_parser(
-            'limits', help='get account API usage limits'
-        )
+
         subparsers.add_parser(
             'algorithms', help='get a list of supported algorithms'
         )
-        subparsers.add_parser(
-            'protocols', help='get a list of supported protocols and ports'
-        )
-        sp = subparsers.add_parser(
-            'list', help='list load balancers'
-        )
-        sp.add_argument(
-            '--deleted', help='list deleted load balancers',
-            action='store_true'
-        )
-        sp = subparsers.add_parser(
-            'virtualips', help='get a list of virtual IPs'
-        )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp = subparsers.add_parser(
-            'delete', help='delete a load balancer'
-        )
-        sp.add_argument('--id', help='load balancer ID', required=True)
+
         sp = subparsers.add_parser(
             'create', help='create a load balancer'
         )
@@ -119,48 +100,23 @@ class ClientOptions(object):
                         action='append', required=True)
         sp.add_argument('--vip',
                         help='the virtual IP to attach the load balancer to')
+
         sp = subparsers.add_parser(
-            'modify', help='modify a load balancer'
+            'delete', help='delete a load balancer'
         )
         sp.add_argument('--id', help='load balancer ID', required=True)
-        sp.add_argument('--name', help='new name for the load balancer')
-        sp.add_argument('--algorithm',
-                        help='new algorithm for the load balancer',
-                        choices=['LEAST_CONNECTIONS', 'ROUND_ROBIN'])
-        sp = subparsers.add_parser(
-            'status', help='get status of a load balancer'
+
+        subparsers.add_parser(
+            'limits', help='get account API usage limits'
         )
-        sp.add_argument('--id', help='load balancer ID', required=True)
+
         sp = subparsers.add_parser(
-            'node-list', help='list nodes in a load balancer'
+            'list', help='list load balancers'
         )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp = subparsers.add_parser(
-            'node-delete', help='delete node from a load balancer'
+        sp.add_argument(
+            '--deleted', help='list deleted load balancers',
+            action='store_true'
         )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp.add_argument('--nodeid',
-                        help='node ID to remove from load balancer',
-                        required=True)
-        sp = subparsers.add_parser(
-            'node-add', help='add node to a load balancer'
-        )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp.add_argument('--node', help='node to add in ip:port form',
-                        required=True, action='append')
-        sp = subparsers.add_parser(
-            'node-modify', help='modify node in a load balancer'
-        )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp.add_argument('--nodeid', help='node ID to modify', required=True)
-        sp.add_argument('--condition', help='the new state for the node',
-                        choices=['ENABLED', 'DISABLED'], required=True)
-        sp = subparsers.add_parser(
-            'node-status', help='get status of a node in a load balancer'
-        )
-        sp.add_argument('--id', help='load balancer ID', required=True)
-        sp.add_argument('--nodeid', help='node ID to get status from',
-                        required=True)
 
         sp = subparsers.add_parser(
             'logs', help='send a snapshot of logs to an object store'
@@ -170,6 +126,64 @@ class ClientOptions(object):
         sp.add_argument('--endpoint', help='object store endpoint to use')
         sp.add_argument('--basepath', help='object store based directory')
         sp.add_argument('--token', help='object store authentication token')
+
+        sp = subparsers.add_parser(
+            'modify', help='modify a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--name', help='new name for the load balancer')
+        sp.add_argument('--algorithm',
+                        help='new algorithm for the load balancer',
+                        choices=['LEAST_CONNECTIONS', 'ROUND_ROBIN'])
+
+        sp = subparsers.add_parser(
+            'node-add', help='add node to a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--node', help='node to add in ip:port form',
+                        required=True, action='append')
+
+        sp = subparsers.add_parser(
+            'node-delete', help='delete node from a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--nodeid',
+                        help='node ID to remove from load balancer',
+                        required=True)
+
+        sp = subparsers.add_parser(
+            'node-list', help='list nodes in a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+
+        sp = subparsers.add_parser(
+            'node-modify', help='modify node in a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--nodeid', help='node ID to modify', required=True)
+        sp.add_argument('--condition', help='the new state for the node',
+                        choices=['ENABLED', 'DISABLED'], required=True)
+
+        sp = subparsers.add_parser(
+            'node-status', help='get status of a node in a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+        sp.add_argument('--nodeid', help='node ID to get status from',
+                        required=True)
+
+        subparsers.add_parser(
+            'protocols', help='get a list of supported protocols and ports'
+        )
+
+        sp = subparsers.add_parser(
+            'status', help='get status of a load balancer'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
+
+        sp = subparsers.add_parser(
+            'virtualips', help='get a list of virtual IPs'
+        )
+        sp.add_argument('--id', help='load balancer ID', required=True)
 
     def run(self):
         self._generate()
