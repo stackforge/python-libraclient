@@ -211,6 +211,27 @@ class LibraAPI(object):
         resp, body = self._post('/loadbalancers/{0}/logs'.format(args.id),
                                 body=data)
 
+    def monitor_delete_lb(self, args):
+        resp, body = self._delete('/loadbalancers/{0}/healthmonitor'
+                                  .format(args.id))
+
+    def monitor_list_lb(self, args):
+        resp, body = self._get('/loadbalancers/{0}/healthmonitor'
+                               .format(args.id))
+        column_names = ['Type', 'Delay', 'Timeout', 'Attempts', 'Path']
+        columns = ['type', 'delay', 'timeout', 'attemptsBeforeDeactivation',
+                   'path']
+        self._render_dict(column_names, columns, body)
+
+    def monitor_modify_lb(self, args):
+        data = {}
+        data['type'] = args.type
+        data['delay'] = args.delay
+        data['timeout'] = args.timeout
+        data['attemptsBeforeDeactivation'] = args.attempts
+        resp, body = self._post('/loadbalancers/{0}/healthmonitor'
+                               .format(args.id), body=data)
+
     def _render_list(self, column_names, columns, data):
         table = prettytable.PrettyTable(column_names)
         for item in data:
