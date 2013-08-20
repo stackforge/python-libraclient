@@ -71,6 +71,13 @@ Global Options
 Client Commands
 ---------------
 
+.. program:: libra_client algorithms
+
+algorithms
+^^^^^^^^^^
+
+Gets a list of supported algorithms
+
 .. program:: libra_client create
 
 create
@@ -98,6 +105,62 @@ Create a load balancer
 
    The virtual IP ID of an existing load balancer to attach to
 
+.. program:: libra_client delete
+
+delete
+^^^^^^
+
+Delete a load balancer
+
+.. option:: --id <id>
+
+   The ID of the load balancer
+
+.. program:: libra_client limits
+
+limits
+^^^^^^
+
+Show the API limits for the user
+
+.. program:: libra_client list
+
+list
+^^^^
+
+List all load balancers
+
+.. option:: --deleted
+
+   Show deleted load balancers
+
+.. program:: libra_client logs
+
+logs
+^^^^
+
+Send a snapshot of logs to an object store
+
+.. option:: --id <id>
+
+   The ID of the load balancer
+
+.. option:: --storage <store>
+
+   Storage type
+
+.. option:: --endpoint <endpoint>
+
+   Object store endpoint to use
+
+.. option:: --basepath <basepath>
+
+   Object store based directory
+
+.. option:: --token <token>
+
+   Object store authentication token
+
 .. program:: libra_client modify
 
 modify
@@ -117,70 +180,53 @@ Update a load balancer's configuration
 
    A new algorithm for the load balancer
 
-.. program:: libra_client list
+.. program:: libra_client monitor-list
 
-list
-^^^^
+monitor-list
+^^^^^^^^^^^^
 
-List all load balancers
-
-.. option:: --deleted
-
-   Show deleted load balancers
-
-.. program:: libra_client limits
-
-limits
-^^^^^^
-
-Show the API limits for the user
-
-.. program:: libra_client algorithms
-
-algorithms
-^^^^^^^^^^
-
-Gets a list of supported algorithms
-
-.. program:: libra_client protocols
-
-protocols
-^^^^^^^^^
-
-Gets a list of supported protocols
-
-.. program:: libra_client status
-
-status
-^^^^^^
-
-Get the status of a single load balancer
+List the health monitor for a load balancer
 
 .. option:: --id <id>
 
    The ID of the load balancer
 
-.. program:: libra_client delete
+.. program:: libra_client monitor-delete
 
-delete
-^^^^^^
+monitor-delete
+^^^^^^^^^^^^^^
 
-Delete a load balancer
+Delete the health monitor for a load balancer
+
+.. option:: --id <id>
+
+   The ID of the load balancer
+
+.. program:: libra_client monitor-modify
+
+monitor-modify
+^^^^^^^^^^^^^^
+
+Modify the health monitor for a load balancer
 
 .. option:: --id <id>
 
    The ID of the load balancer
 
-.. program:: libra_client node-list
+.. program:: libra_client node-add
 
-node-list
-^^^^^^^^^
+node-add
+^^^^^^^^
 
-List the nodes in a load balancer
+Add a node to a load balancer
 
 .. option:: --id <id>
 
    The ID of the load balancer
+
+.. option:: --node <ip:port>
+
+   The node address in ip:port format (can be used multiple times to add multiple nodes)
 
 .. program:: libra_client node-delete
 
@@ -197,20 +243,16 @@ Delete a node from the load balancer
 
    The ID of the node to be removed
 
-.. program:: libra_client node-add
+.. program:: libra_client node-list
 
-node-add
-^^^^^^^^
+node-list
+^^^^^^^^^
 
-Add a node to a load balancer
+List the nodes in a load balancer
 
 .. option:: --id <id>
 
    The ID of the load balancer
-
-.. option:: --node <ip:port>
-
-   The node address in ip:port format (can be used multiple times to add multiple nodes)
 
 .. program:: libra_client node-modify
 
@@ -245,3 +287,29 @@ Get the status of a node in a load balancer
 .. option:: --nodeid <nodeid>
 
    The ID of the node in the load balancer
+.. program:: libra_client protocols
+
+protocols
+^^^^^^^^^
+
+Gets a list of supported protocols
+
+.. program:: libra_client status
+
+status
+^^^^^^
+
+Get the status of a single load balancer
+
+.. option:: --id <id>
+
+   The ID of the load balancer
+
+virtualips
+^^^^^^^^^^
+
+Get a list of virtual IPs
+
+.. option:: --id <id>
+
+   The ID of the load balancer

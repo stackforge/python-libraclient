@@ -137,6 +137,34 @@ class ClientOptions(object):
                         choices=['LEAST_CONNECTIONS', 'ROUND_ROBIN'])
 
         sp = subparsers.add_parser(
+            'monitor-list',
+            help='list health monitor information'
+        )
+        sp.add_argument('--id', required=True, help='load balancer ID')
+
+        sp = subparsers.add_parser(
+            'monitor-delete',
+            help='delete a health monitor'
+        )
+        sp.add_argument('--id', required=True, help='load balancer ID')
+
+        sp = subparsers.add_parser(
+            'monitor-modify',
+            help='modify a health monitor'
+        )
+        sp.add_argument('--id', required=True, help='load balancer ID')
+        sp.add_argument('--type', choices=['CONNECT', 'HTTP'],
+                        default='CONNECT', help='health monitor type')
+        sp.add_argument('--delay', type=int, default=30, metavar='SECONDS',
+                        help='time between health monitor calls')
+        sp.add_argument('--timeout', type=int, default=30, metavar='SECONDS',
+                        help='time to wait before monitor times out')
+        sp.add_argument('--attempts', type=int, default=2, metavar='COUNT',
+                        help='connection attempts before marking node as bad')
+        sp.add_argument('--path',
+                        help='URI path for health check')
+
+        sp = subparsers.add_parser(
             'node-add', help='add node to a load balancer'
         )
         sp.add_argument('--id', help='load balancer ID', required=True)
