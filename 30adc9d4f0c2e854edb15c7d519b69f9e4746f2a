@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: David Shrewsbury <shrewsbury.dave@gmail.com>
+Code-Review+2: David Shrewsbury <shrewsbury.dave@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Thu, 22 Aug 2013 16:42:06 +0000
+Reviewed-on: https://review.openstack.org/42977
+Project: stackforge/python-libraclient
+Branch: refs/heads/master
