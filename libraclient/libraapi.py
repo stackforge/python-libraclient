@@ -221,7 +221,7 @@ class LibraAPI(object):
         column_names = ['Type', 'Delay', 'Timeout', 'Attempts', 'Path']
         columns = ['type', 'delay', 'timeout', 'attemptsBeforeDeactivation',
                    'path']
-        self._render_dict(column_names, columns, body)
+        self._render_dict(column_names, columns, body or {})
 
     def monitor_modify_lb(self, args):
         data = {}
