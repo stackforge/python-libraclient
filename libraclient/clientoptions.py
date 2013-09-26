@@ -90,7 +90,7 @@ class ClientOptions(object):
                         help='port for the load balancer, 80 is default')
         sp.add_argument('--protocol',
                         help='protocol for the load balancer, HTTP is default',
-                        choices=['HTTP', 'TCP'])
+                        choices=['HTTP', 'TCP', 'GALERA'])
         sp.add_argument('--algorithm',
                         help='algorithm for the load balancer,'
                              ' ROUND_ROBIN is default',

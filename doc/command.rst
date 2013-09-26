@@ -95,7 +95,9 @@ Create a load balancer
 
 .. option:: --protocol <protocol>
 
-   The protocol type for the load balancer (HTTP or TCP)
+   The protocol type for the load balancer (HTTP, TCP or GALERA).
+   The Galera option adds support for deadlock avoidance in Galera clusters,
+   see `Serveral Nine's Blog <http://www.severalnines.com/blog/avoiding-deadlocks-galera-set-haproxy-single-node-writes-and-multi-node-reads>`_ on this.
 
 .. option:: --node <ip:port>
 

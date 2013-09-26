@@ -15,6 +15,7 @@
 import prettytable
 import novaclient
 import socket
+import logging
 
 from novaclient import client
 
@@ -59,6 +60,10 @@ novaclient.exceptions.from_response = from_response
 
 class LibraAPI(object):
     def __init__(self, args):
+        if args.debug:
+            logger = logging.getLogger()
+            logger.setLevel(logging.DEBUG)
+
         self.nova = client.HTTPClient(
             args.os_username,
             args.os_password,
