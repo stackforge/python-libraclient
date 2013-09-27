@@ -190,7 +190,9 @@ class ClientOptions(object):
         sp.add_argument('--id', help='load balancer ID', required=True)
         sp.add_argument('--nodeid', help='node ID to modify', required=True)
         sp.add_argument('--condition', help='the new state for the node',
-                        choices=['ENABLED', 'DISABLED'], required=True)
+                        choices=['ENABLED', 'DISABLED'])
+        sp.add_argument('--weight', type=int, default=1, metavar='COUNT',
+                        help='node weight ratio as compared to other nodes')
 
         sp = subparsers.add_parser(
             'node-status', help='get status of a node in a load balancer'

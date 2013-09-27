@@ -171,8 +171,9 @@ class LibraAPI(object):
 
     def node_list_lb(self, args):
         resp, body = self._get('/loadbalancers/{0}/nodes'.format(args.id))
-        column_names = ['ID', 'Address', 'Port', 'Condition', 'Status']
-        columns = ['id', 'address', 'port', 'condition', 'status']
+        column_names = ['ID', 'Address', 'Port', 'Condition', 'Weight',
+                        'Status']
+        columns = ['id', 'address', 'port', 'condition', 'weight', 'status']
         self._render_list(column_names, columns, body['nodes'])
 
     def node_delete_lb(self, args):
@@ -185,20 +186,22 @@ class LibraAPI(object):
         data['nodes'] = self._parse_nodes(args.node)
         resp, body = self._post('/loadbalancers/{0}/nodes'
                                 .format(args.id), body=data)
-        column_names = ['ID', 'Address', 'Port', 'Condition', 'Status']
-        columns = ['id', 'address', 'port', 'condition', 'status']
+        column_names = ['ID', 'Address', 'Port', 'Condition', 'Weight',
+                        'Status']
+        columns = ['id', 'address', 'port', 'condition', 'weight', 'status']
         self._render_list(column_names, columns, body['nodes'])
 
     def node_modify_lb(self, args):
-        data = {'condition': args.condition}
+        data = {'condition': args.condition, 'weight': args.weight}
         self._put('/loadbalancers/{0}/nodes/{1}'
                   .format(args.id, args.nodeid), body=data)
 
     def node_status_lb(self, args):
         resp, body = self._get('/loadbalancers/{0}/nodes/{1}'
                                .format(args.id, args.nodeid))
-        column_names = ['ID', 'Address', 'Port', 'Condition', 'Status']
-        columns = ['id', 'address', 'port', 'condition', 'status']
+        column_names = ['ID', 'Address', 'Port', 'Condition',
+                        'Weight', 'Status']
+        columns = ['id', 'address', 'port', 'condition', 'weight', 'status']
         self._render_dict(column_names, columns, body)
 
     def logs_lb(self, args):
