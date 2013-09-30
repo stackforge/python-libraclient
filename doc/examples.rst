@@ -28,6 +28,20 @@ Client will then return a table similar to the below:
 | [{u'ipVersion': u'IPV_4', u'type': u'PUBLIC', u'id': u'52', u'address': u'15.185.224.62'}] | [{u'status': u'ONLINE', u'id': u'2311', u'port': u'80', u'condition': u'ENABLED', u'address': u'192.168.1.1'}, {u'status': u'ONLINE', u'id': u'2312', u'port': u'80', u'condition': u'ENABLED', u'address': u'192.168.1.2'}] |
 +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+Create a Load Balancer with Node Options
+----------------------------------------
+
+.. code-block:: bash
+
+   libra_client --os_auth_url=https://company.com/openstack/auth/url \
+   --os_username=username --os_password=pasword --os_tenant_name=tenant \
+   --os_region_name=region create --name=my_load_balancer \
+   --node 192.168.1.1:80:weight=1 --node 192.168.1.2:80:weight=2
+
+Nearly identical to the above example, this creates a new load balancer
+with two nodes, but one is more heavily weighted than the other, causing
+it to accept more traffic.
+
 Create a Shared Load Balancer
 -----------------------------
 

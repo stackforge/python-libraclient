@@ -283,14 +283,37 @@ class LibraAPI(object):
         out_nodes = []
         try:
             for node in nodes:
-                addr = node.split(':')
+                nodeopts = node.split(':')
+                ipaddr = nodeopts[0]
+                port = nodeopts[1]
+                weight, backup = None, None
+
                 # Test IP valid
                 # TODO: change to pton when we want to support IPv6
-                socket.inet_aton(addr[0])
+                socket.inet_aton(ipaddr)
                 # Test port valid
-                if int(addr[1]) < 0 or int(addr[1]) > 65535:
-                    raise
-                out_nodes.append({'address': addr[0], 'port': addr[1]})
-        except:
-            raise Exception("Invalid IP:port specified for --node")
+                if int(port) < 0 or int(port) > 65535:
+                    raise Exception('Port out of range')
+
+                # Process the rest of the node options as key=value
+                for kv in nodeopts[2:]:
+                    key, value = kv.split('=')
+                    key = key.lower()
+                    value = value.upper()
+                    if key == 'weight':
+                        weight = int(value)
+                    elif key == 'backup':
+                        backup = value    # 'TRUE' or 'FALSE'
+                    else:
+                        raise Exception("Unknown node option '%s'" % key)
+
+                node_def = {'address': ipaddr, 'port': port}
+                if weight:
+                    node_def['weight'] = weight
+                if backup:
+                    node_def['backup'] = backup
+
+                out_nodes.append(node_def)
+        except Exception as e:
+            raise Exception("Invalid value specified for --node: %s" % e)
         return out_nodes
