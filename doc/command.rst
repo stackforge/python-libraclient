@@ -99,9 +99,10 @@ Create a load balancer
    The Galera option adds support for deadlock avoidance in Galera clusters,
    see `Serveral Nine's Blog <http://www.severalnines.com/blog/avoiding-deadlocks-galera-set-haproxy-single-node-writes-and-multi-node-reads>`_ on this.
 
-.. option:: --node <ip:port>
+.. option:: --node <ip:port:option=value:...>
 
-   The IP and port for a load balancer node (can be used multiple times to add multiple nodes)
+   The IP and port for a load balancer node (can be used multiple times to add multiple nodes).
+   Additional node options may be specified after the ip:port portion in a option=value format.
 
 .. option:: --vip <vip>
 
@@ -226,9 +227,10 @@ Add a node to a load balancer
 
    The ID of the load balancer
 
-.. option:: --node <ip:port>
+.. option:: --node <ip:port:option=value:...>
 
-   The node address in ip:port format (can be used multiple times to add multiple nodes)
+   The node address in ip:port format (can be used multiple times to add multiple nodes).
+   Additional node options may be specified after the ip:port portion in a option=value format.
 
 .. program:: libra_client node-delete
 
