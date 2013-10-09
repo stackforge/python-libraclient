@@ -3,6 +3,7 @@
 .tox
 *.egg-info
 build/
+dist/
 debian/files
 debian/python-libraclient.debhelper.log
 debian/python-libraclient.postinst.debhelper
