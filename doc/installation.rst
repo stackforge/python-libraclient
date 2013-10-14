@@ -1,28 +1,65 @@
+.. _installation:
+
 Installation
 ============
 
-From Ubuntu Package
+From Ubuntu Package via PPA
+---------------------------
+
+1. Install utility
+
+::
+
+    apt-get install python-software-properties
+
+2. Add the PPA
+
+::
+
+    apt-add-repository ppa:libra-core/ppa
+
+3. Update the package indexes
+
+::
+
+    apt-get update -q
+
+4. Install packages
+
+::
+
+    apt-get install -qy python-libraclient
+
+
+.. _virtual-env:
+
+Virtual Environment
 -------------------
 
 .. code-block:: bash
 
-   sudo apt-get install python-pip
-   sudo pip install python-novaclient --upgrade
-   sudo dpkg -i python-libraclient_1.2.2-1_all.deb
+  virtualenv $HOME/libraclient_venv
+  . $HOME/libraclient_venv/bin/activate
 
-If the last command fails with an unmet dependency run this to fix it:
-
-.. code-block:: bash
-
-   sudo apt-get -fy install
 
 From Source
 -----------
 
-The python-setuptools package needs to be installed on your system before
-installing the client from source.
+See :ref:`virtual-env` if you want to install this isolated to your
+python libraries.
 
 .. code-block:: bash
 
-   sudo apt-get install python-setuptools
-   sudo python setup.py install
+    apt-get install python-pip
+    pip install -e git+https://github.com/stackforge/python-libraclient#egg=libraclient
+
+
+From PyPI (Python Package Index)
+--------------------------------
+
+See :ref:`virtual-env` if you want to install this isolated to your
+python libraries.
+
+.. code-block:: bash
+
+  apt-get install python-pip
