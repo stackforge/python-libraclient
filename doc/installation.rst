@@ -1,8 +1,35 @@
 Installation
 ============
 
-From Ubuntu Package
--------------------
+From Ubuntu Package via PPA
+---------------------------
+
+1. Install utility
+
+::
+
+    apt-get install python-software-properties
+
+2. Add the PPA
+
+::
+
+    apt-add-repository ppa:libra-core/ppa
+
+3. Update the package indexes
+
+::
+
+    apt-get update -q
+
+4. Install packages
+
+::
+
+    apt-get install -qy python-libraclient
+
+From Ubuntu Package - donwloaded deb
+------------------------------------
 
 .. code-block:: bash
 
@@ -16,6 +43,7 @@ If the last command fails with an unmet dependency run this to fix it:
 
    sudo apt-get -fy install
 
+
 From Source
 -----------
 
@@ -24,5 +52,5 @@ installing the client from source.
 
 .. code-block:: bash
 
-   sudo apt-get install python-setuptools
-   sudo python setup.py install
+    apt-get install python-pip
+    pip install https://github.com/stackforge/python-libraclient/archive/master.zip#egg=libraclient
