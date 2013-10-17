@@ -16,7 +16,9 @@ import sys
 import os
 from libraapi import LibraAPI
 from clientoptions import ClientOptions
-from novaclient import exceptions
+from libraclient.openstack.common.apiclient import exceptions
+
+import pkg_resources
 
 
 def main():
@@ -56,3 +58,23 @@ def main():
         return 2
 
     return 0
+
+
+def _find_versions():
+    versions = {}
+    for e in list(pkg_resources.iter_entry_points('libraclient.versions')):
+        versions[e.name] = (e.module_name, e.load())
+    return versions
+
+
+def get_version(version):
+    versions = _find_versions()
+    try:
+        return versions[version][1]
+    except KeyError:
+        raise exceptions.UnsupportedVersion('%s is not a supported version.' % version)
+
+
+def VersionedClient(version, *args, **kw):
+    cls = get_version(version)
+    return cls(*args, **kw)
