@@ -11,7 +11,17 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+from libraclient.openstack.common.apiclient import base
+from libraclient.v1_1.base import Manager
 
-import pbr.version
 
-__version__ = pbr.version.VersionInfo('python-libraclient').version_string()
+class Protocol(base.Resource):
+    def __repr__(self):
+        return '<Protocol: %s>' % self.name
+
+
+class ProtocolManager(Manager):
+    resource_class = Protocol
+
+    def list(self):
+        return self._list('/protocols', 'protocols')

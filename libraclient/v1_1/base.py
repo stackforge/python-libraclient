@@ -11,7 +11,14 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+from urllib import urlencode
+from libraclient.openstack.common.apiclient.base import ManagerWithFind
 
-import pbr.version
 
-__version__ = pbr.version.VersionInfo('python-libraclient').version_string()
+class Manager(ManagerWithFind):
+    def build_url(self, url, params):
+        q = urlencode(params) if params else ''
+        return '%(url)s%(params)s' % {
+            'url': url,
+            'params': '?%s' % q
+        }
