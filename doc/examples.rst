@@ -6,7 +6,7 @@ Create Load Balancer
 
 .. code-block:: bash
 
-   libra_client --os_auth_url=https://company.com/openstack/auth/url \
+   libra --os_auth_url=https://company.com/openstack/auth/url \
    --os_username=username --os_password=pasword --os_tenant_name=tenant \
    --os_region_name=region create --name=my_load_balancer \
    --node 192.168.1.1:80 --node 192.168.1.2:80
@@ -33,7 +33,7 @@ Create a Load Balancer with Node Options
 
 .. code-block:: bash
 
-   libra_client --os_auth_url=https://company.com/openstack/auth/url \
+   libra --os_auth_url=https://company.com/openstack/auth/url \
    --os_username=username --os_password=pasword --os_tenant_name=tenant \
    --os_region_name=region create --name=my_load_balancer \
    --node 192.168.1.1:80:weight=1 --node 192.168.1.2:80:weight=2
@@ -51,7 +51,7 @@ to the load balancer we created previously:
 
 .. code-block:: bash
 
-   libra_client --os_auth_url=https://company.com/openstack/auth/url \
+   libra --os_auth_url=https://company.com/openstack/auth/url \
    --os_username=username --os_password=pasword --os_tenant_name=tenant \
    --os_region_name=region create --name=my_load_balancer \
    --node 192.168.1.1:443 --node 192.168.1.2:443 --protocol=TCP --port=443 \
@@ -79,7 +79,7 @@ Add a Node
 
 .. code-block:: bash
 
-   libra_client --os_auth_url=https://company.com/openstack/auth/url \
+   libra --os_auth_url=https://company.com/openstack/auth/url \
    --os_username=username --os_password=pasword --os_tenant_name=tenant \
    --os_region_name=region node-add --id=1158 --node=192.168.1.3:443
 
