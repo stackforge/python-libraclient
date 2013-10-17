@@ -11,6 +11,22 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-import pbr.version
+from libraclient.openstack.common.apiclient import base
 
-__version__ = pbr.version.VersionInfo('python-libraclient').version_string()
+
+class Limit(base.Resource):
+    def __repr__(self):
+        return '<Limit: %s>' % self.name
+
+
+class LimitManager(base.BaseManager):
+    resource_class = Limit
+
+    def list_limits(self):
+        limits = []
+        json = self.client.get('/limits').json()
+        for lname, lvalues in json['limits'].items():
+            values = lvalues['values']
+            values['name'] = lname
+            limits.append(Limit(self, values))
+        return limits
