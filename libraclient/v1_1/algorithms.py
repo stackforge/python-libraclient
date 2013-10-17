@@ -11,6 +11,17 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-import pbr.version
+from libraclient.openstack.common.apiclient import base
+from libraclient.v1_1.base import Manager
 
-__version__ = pbr.version.VersionInfo('python-libraclient').version_string()
+
+class Algorithm(base.Resource):
+    def __repr__(self):
+        return '<Algorithm: %s>' % self.name
+
+
+class AlgorithmManager(Manager):
+    resource_class = Algorithm
+
+    def list(self):
+        return self._list('/algorithms', 'algorithms')
