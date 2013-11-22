@@ -164,9 +164,9 @@ Send a snapshot of logs to an object store
 
    Object store authentication token
 
-.. program:: libra modify
+.. program:: libra update
 
-modify
+update
 ^^^^^^
 
 Update a load balancer's configuration
@@ -205,12 +205,12 @@ Delete the health monitor for a load balancer
 
    The ID of the load balancer
 
-.. program:: libra monitor-modify
+.. program:: libra monitor-update
 
-monitor-modify
+monitor-update
 ^^^^^^^^^^^^^^
 
-Modify the health monitor for a load balancer
+Update the health monitor for a load balancer
 
 .. option:: <id>
 
@@ -258,12 +258,12 @@ List the nodes in a load balancer
 
    The ID of the load balancer
 
-.. program:: libra node-modify
+.. program:: libra node-update
 
-node-modify
+node-update
 ^^^^^^^^^^^
 
-Modify a node's state in a load balancer
+Update a node's state in a load balancer
 
 .. option:: <id>
 
@@ -271,13 +271,13 @@ Modify a node's state in a load balancer
 
 .. option:: <nodeid>
 
-   The ID of the node to be modified
+   The ID of the node to be updated
 
 .. option:: --condition <condition>
 
    The new state of the node (either ENABLED or DISABLED)
 
-.. program:: libra node-status
+.. program:: libra node-show
 
 node-show
 ^^^^^^^^^
@@ -308,6 +308,8 @@ Get the status of a single load balancer
 .. option:: <id>
 
    The ID of the load balancer
+
+.. program:: libra virtualips
 
 virtualips
 ^^^^^^^^^^
