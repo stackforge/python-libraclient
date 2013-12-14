@@ -66,8 +66,8 @@ class LoadBalancer(Resource):
     def delete_node(self, node):
         return self.manager.delete_node(self, node)
 
-    def update_monitor(self, type_='CONNECT', delay=30, timeout=30,
-                       attempts=2, path=None):
+    def update_monitor(self, type_, delay, timeout,
+                       attempts, path=None):
         return self.manager.update_monitor(
             self, type_=type_, delay=delay, timeout=timeout, attempts=attempts,
             path=path)
@@ -257,8 +257,8 @@ class LoadBalancerManager(Manager):
         url = '/loadbalancers/%s/healthmonitor' % getid(lb)
         return self._get(url, obj_class=Monitor)
 
-    def update_monitor(self, lb, type_='CONNECT', delay=30, timeout=30,
-                       attempts=2, path=None):
+    def update_monitor(self, lb, type_, delay, timeout,
+                       attempts, path=None):
         """
         Update a Monitor in a LoadBalancer
 
@@ -272,7 +272,7 @@ class LoadBalancerManager(Manager):
         data = {}
         data['type'] = type_
         if timeout > delay:
-            raise ValueError('Timeout can\'t be greater then Delay')
+            raise ValueError('Timeout can\'t be greater than Delay')
         data['delay'] = delay
         data['timeout'] = timeout
         data['attemptsBeforeDeactivation'] = attempts

@@ -246,26 +246,22 @@ def do_monitor_show(cs, args):
 @cliutils.arg(
     '--type',
     choices=['CONNECT', 'HTTP'],
-    default='CONNECT',
-    help='health monitor type')
+    help='health monitor type', required=True)
 @cliutils.arg(
     '--delay',
     type=int,
-    default=30,
     metavar='SECONDS',
-    help='time between health monitor calls')
+    help='time between health monitor calls', required=True)
 @cliutils.arg(
     '--timeout',
     type=int,
-    default=30,
     metavar='SECONDS',
-    help='time to wait before monitor times out')
+    help='time to wait before monitor times out', required=True)
 @cliutils.arg(
     '--attempts',
     type=int,
-    default=2,
     metavar='COUNT',
-    help='connection attempts before marking node as bad')
+    help='connection attempts before marking node as bad', required=True)
 @cliutils.arg(
     '--path',
     help='URI path for health check')
