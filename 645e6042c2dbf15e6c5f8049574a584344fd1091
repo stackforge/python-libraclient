@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Approved+1: Marc Pilon <pilon.marc@gmail.com>
+Code-Review+2: Marc Pilon <pilon.marc@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Sat, 14 Dec 2013 00:26:35 +0000
+Reviewed-on: https://review.openstack.org/62111
+Project: stackforge/python-libraclient
+Branch: refs/heads/master
