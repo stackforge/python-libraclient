@@ -214,7 +214,7 @@ class LibraClientArgumentParser(argparse.ArgumentParser):
         exits.
         """
         self.print_usage(sys.stderr)
-        #FIXME(lzyeval): if changes occur in argparse.ArgParser._check_value
+        # FIXME(lzyeval): if changes occur in argparse.ArgParser._check_value
         choose_from = ' (choose from'
         progparts = self.prog.partition(' ')
         self.exit(2, "error: %(errmsg)s\nTry '%(mainp)s help %(subp)s'"
@@ -540,7 +540,7 @@ class LibraShell(object):
 
         os_password = None
 
-        #FIXME(usrleon): Here should be restrict for project id same as
+        # FIXME(usrleon): Here should be restrict for project id same as
         # for os_username or os_password but for compatibility it is not.
         if not cliutils.isunauthenticated(args.func):
             if auth_plugin:
