@@ -1,5 +1,0 @@
-python_novaclient>=2.14.1,!=2.14.2
-PrettyTable>=0.7,<0.8
-babel
-stevedore
-six>=1.4.1
